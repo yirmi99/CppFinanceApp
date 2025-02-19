@@ -1,7 +1,7 @@
 #include "CurrencyAPI.h"
 #include <iostream>
 
-const std::string API_KEY = "46e5a0c5aad23484fe80b99c";
+const std::string API_KEY = "";
 const std::string BASE_URL = "https://v6.exchangerate-api.com/v6/";
 
 nlohmann::json CurrencyAPI::fetchExchangeRates(const std::string& baseCurrency) {
