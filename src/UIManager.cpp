@@ -1,5 +1,8 @@
 #include "UIManager.h"
+#include "BackupManager.h"
 #include <iostream>
+
+DownloadThread UIManager::downloadThread;
 
 void UIManager::setup(GLFWwindow* window) {
     IMGUI_CHECKVERSION();
@@ -8,6 +11,12 @@ void UIManager::setup(GLFWwindow* window) {
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 150");
+
+    downloadThread.start("USD", [](nlohmann::json rates) {
+        std::cout << "✅ Exchange rates updated!\n";
+    });
+
+    BackupManager::startBackup();
 }
 
 void UIManager::render(FinanceManager& financeManager) {
@@ -46,12 +55,24 @@ void UIManager::render(FinanceManager& financeManager) {
     static char category[20] = "Food";
     static float amount = 0.0f;
 
-    ImGui::InputText("📆 Date", date, IM_ARRAYSIZE(date));
-    ImGui::InputText("📍 Category", category, IM_ARRAYSIZE(category));
-    ImGui::InputFloat("💵 Amount", &amount);
+    ImGui::InputText("Date", date, IM_ARRAYSIZE(date));
+    ImGui::InputText("Category", category, IM_ARRAYSIZE(category));
+    ImGui::InputFloat("Amount", &amount);
 
     if (ImGui::Button("➕ Add Transaction")) {
         financeManager.addTransaction({date, category, amount});
+    }
+
+    if (ImGui::Button("Backup Transactions")) {
+        BackupManager::backupToServer();
+    }
+
+    if (ImGui::Button("⏪ Restore Transactions")) {
+        std::vector<Transaction> restoredTransactions;
+        BackupManager::restoreFromServer(restoredTransactions);
+        for (const auto& transaction : restoredTransactions) {
+            financeManager.addTransaction(transaction);
+        }
     }
 
     ImGui::End();
@@ -60,6 +81,8 @@ void UIManager::render(FinanceManager& financeManager) {
 }
 
 void UIManager::shutdown() {
+    downloadThread.stop();
+    BackupManager::stopBackup();
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();

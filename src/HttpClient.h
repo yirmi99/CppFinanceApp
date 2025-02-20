@@ -9,8 +9,8 @@
 
 class HttpClient {
 public:
-    // Sends a GET request and returns a JSON response
-    static nlohmann::json getRequest(const std::string& url);
+    static nlohmann::json getRequest(const std::string& url, const httplib::Headers& headers = {});
+    static nlohmann::json putRequest(const std::string& url, const std::string& jsonPayload, const httplib::Headers& headers = {});
 };
 
 #endif // HTTPCLIENT_H

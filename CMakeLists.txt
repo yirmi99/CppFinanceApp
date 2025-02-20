@@ -38,6 +38,8 @@ add_executable(CppFinanceApp
     src/FinanceManager.cpp
     src/CurrencyAPI.cpp
     src/UIManager.cpp
+    src/DownloadThread.cpp
+    src/BackupManager.cpp
 )
 
 
