@@ -4,13 +4,13 @@
 CppFinanceApp is a simple app for managing personal finances. It lets you add transactions, check exchange rates, and back up data online. The app has a user friendly interface built with ImGui and runs smoothly with multithreading.  
 
 ## **Features**  
-Add, edit, and delete transactions  
-Categorize expenses  
-View transaction history in a clean UI  
-Fetch live exchange rates  
-Auto backup transactions to JSONBin  
-Restore transactions when needed  
-Runs efficiently using background threads  
+- Add, edit, and delete transactions  
+- Categorize expenses  
+- View transaction history in a clean UI  
+- Fetch live exchange rates  
+- Auto backup transactions to JSONBin  
+- Restore transactions when needed  
+- Runs efficiently using background threads  
 
 ## **Setup**  
 
