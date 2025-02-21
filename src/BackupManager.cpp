@@ -17,7 +17,7 @@ void BackupManager::startBackup() {
     backupThread = std::thread([]() {
         while (running.load()) {
             backupToServer();
-            std::this_thread::sleep_for(std::chrono::minutes(10));  // גיבוי אוטומטי כל 10 דקות
+            std::this_thread::sleep_for(std::chrono::minutes(10));
         }
     });
 }
@@ -36,7 +36,6 @@ void BackupManager::backupToServer() {
         return;
     }
 
-    // המרת הוקטור לפורמט JSON תקין
     nlohmann::json jsonBackup;
     jsonBackup["transactions"] = nlohmann::json::array();
 
@@ -46,7 +45,7 @@ void BackupManager::backupToServer() {
 
     httplib::Headers headers = {
         {"Content-Type", "application/json"},
-        {"X-Master-Key", "YOUR_X_MASTER_KEY_HERE"}  // הכנס את המפתח שלך כאן
+        {"X-Master-Key", "YOUR_X_MASTER_KEY_HERE"}
     };
 
     try {

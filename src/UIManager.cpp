@@ -13,7 +13,7 @@ void UIManager::setup(GLFWwindow* window) {
     ImGui_ImplOpenGL3_Init("#version 150");
 
     downloadThread.start("USD", [](nlohmann::json rates) {
-        std::cout << "✅ Exchange rates updated!\n";
+        std::cout << "Exchange rates updated!\n";
     });
 
     BackupManager::startBackup();
@@ -24,12 +24,12 @@ void UIManager::render(FinanceManager& financeManager) {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("📊 Finance Tracker");
+    ImGui::Begin("Finance Tracker");
 
     if (ImGui::BeginTable("Transactions", 3, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
-        ImGui::TableSetupColumn("🗓 Date");
-        ImGui::TableSetupColumn("📌 Category");
-        ImGui::TableSetupColumn("💲 Amount");
+        ImGui::TableSetupColumn("Date");
+        ImGui::TableSetupColumn("Category");
+        ImGui::TableSetupColumn("Amount");
         ImGui::TableHeadersRow();
 
         for (size_t i = 0; i < financeManager.getTransactions().size(); ++i) {
@@ -67,7 +67,7 @@ void UIManager::render(FinanceManager& financeManager) {
         BackupManager::backupToServer();
     }
 
-    if (ImGui::Button("⏪ Restore Transactions")) {
+    if (ImGui::Button("Restore Transactions")) {
         std::vector<Transaction> restoredTransactions;
         BackupManager::restoreFromServer(restoredTransactions);
         for (const auto& transaction : restoredTransactions) {

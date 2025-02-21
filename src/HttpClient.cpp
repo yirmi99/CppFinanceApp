@@ -23,14 +23,14 @@ nlohmann::json HttpClient::putRequest(const std::string& url, const std::string&
     httplib::SSLClient client("api.jsonbin.io");
     client.set_follow_location(true);
 
-    std::cout << "🔄 Sending backup request to: " << url << std::endl;
-    auto res = client.Put(url.c_str(), headers, jsonPayload, "application/json");  
+    std::cout << "Sending backup request to: " << url << std::endl;
+    auto res = client.Put(url.c_str(), headers, jsonPayload, "application/json"); 
 
     if (res && res->status == 200) {
         return nlohmann::json::parse(res->body);
     }
 
-    std::cerr << "Failed to send backup request! Status: " 
+    std::cerr << "Failed to send backup request! Status: "
               << (res ? std::to_string(res->status) : "No Response") << std::endl;
     return {};
 }

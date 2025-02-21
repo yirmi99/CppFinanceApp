@@ -14,7 +14,7 @@ void DataStorage::saveTransactions(const std::vector<Transaction>& transactions)
     if (file.is_open()) {
         file << jsonData.dump(4);
         file.close();
-        std::cout << "✅ Transactions saved successfully!\n";
+        std::cout << "Transactions saved successfully!\n";
     } else {
         std::cerr << "Failed to open file for writing: " << FILE_PATH << std::endl;
     }
@@ -41,7 +41,7 @@ std::vector<Transaction> DataStorage::loadTransactions() {
         std::cout << "Transactions loaded successfully!\n";
     } catch (const std::exception& e) {
         std::cerr << "Error reading transactions file: " << e.what() << "\n";
-        transactions.clear();  // Ensure empty list if file is corrupted
+        transactions.clear();
     }
 
     return transactions;

@@ -22,7 +22,7 @@ void DownloadThread::start(const std::string& baseCurrency, std::function<void(n
             if (!rates.empty()) {
                 callback(rates);
             } else {
-                std::cerr << "❌ Failed to fetch exchange rates!\n";
+                std::cerr << "Failed to fetch exchange rates!\n";
             }
 
             std::this_thread::sleep_for(std::chrono::minutes(5));
