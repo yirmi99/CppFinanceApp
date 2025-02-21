@@ -9,7 +9,7 @@ std::atomic<bool> BackupManager::running(false);
 
 void BackupManager::startBackup() {
     if (running.load()) {
-        std::cerr << "⚠️ Backup thread already running!\n";
+        std::cerr << "Backup already running!\n";
         return;
     }
 
@@ -32,7 +32,7 @@ void BackupManager::stopBackup() {
 void BackupManager::backupToServer() {
     std::vector<Transaction> transactions = DataStorage::loadTransactions();
     if (transactions.empty()) {
-        std::cerr << "⚠️ No transactions to backup!\n";
+        std::cerr << "Nothing to backup!\n";
         return;
     }
 
@@ -51,7 +51,7 @@ void BackupManager::backupToServer() {
     try {
         nlohmann::json response = HttpClient::putRequest(BACKUP_URL, jsonBackup.dump(), headers);
 
-        std::cout << "🔍 Server Response: " << response.dump(4) << std::endl;
+        std::cout << "Response: " << response.dump(4) << std::endl;
 
         if (!response.empty() && response.contains("record")) {
             std::cout << "Transactions backed up successfully!\n";
