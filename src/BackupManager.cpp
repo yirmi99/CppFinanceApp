@@ -1,8 +1,8 @@
 #include "BackupManager.h"
 #include <iostream>
 
-const std::string BACKUP_URL = "https://api.jsonbin.io/v3/b/67b6dfa2ad19ca34f80ad957";
-const std::string API_KEY = "X-Master-Key: $2a$10$YPI6DMLasGo5qSC9taha1O1zxyFHhp1ZtJ9w6bVV43h.zugK72sNm";
+const std::string BACKUP_URL = "";
+const std::string API_KEY = "";
 
 std::thread BackupManager::backupThread;
 std::atomic<bool> BackupManager::running(false);
